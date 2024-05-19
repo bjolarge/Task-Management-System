@@ -36,26 +36,20 @@ import { WebsocketGateway } from './websocket.gateway';
        EMAIL_CONFIRMATION_URL: Joi.string().required(),
        JWT_VERIFICATION_TOKEN_SECRET:Joi.string().required(),
        JWT_VERIFICATION_TOKEN_EXPIRATION_TIME:Joi.string().required(),
-       // Environment options
-       //NODE_ENV: Joi.string()
-       // .required()
-       // .valid(NODE_ENV.DEVELOPMENT, NODE_ENV.PRODUCTION),
      })
      }),
 
      TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-       host: configService.get('DB_HOST'),
-       port: +configService.get<number>('DB_PORT'),
-        username: configService.get('DB_USERNAME'), 
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
-       // ssl:configService.get('DB_SSL'),
-        autoLoadEntities: true,
-        //synchronize: false,
-        //change this whilst going live in Niyo TMS production server
+      type: 'postgres',
+      host: configService.get('DB_HOST'),
+      port: +configService.get<number>('DB_PORT'),
+      username: configService.get('DB_USERNAME'), 
+      password: configService.get('DB_PASSWORD'),
+      database: configService.get('DB_NAME'),
+      autoLoadEntities: true,
+     //change this whilst going live in Niyo TMS production server to synchronise false
         synchronize:true,
       }),
       inject: [ConfigService],
