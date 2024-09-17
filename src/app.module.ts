@@ -98,10 +98,9 @@ import {ScheduleModule} from '@nestjs/schedule'
     }),
     inject: [ConfigService]
   }),
-  MongooseModule.forRoot('mongodb://127.0.0.1:27017/xactwear'),
-//   MongooseModule.forRoot( 
-//     mongodb+srv://furnitures:furnitures@furnitures.bwwgxqz.mongodb.net/?retryWrites=true&w=majority&appName=furnitures
-// ),
+
+  MongooseModule.forRoot(process.env.MongoDbKey),
+  
 
      TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
