@@ -88,20 +88,47 @@ import { CreateUserDto } from './dto/create-user.dto';
 //import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import User from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { hashPassword } from 'src/common/utils.';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserSensitive } from './dto/update-user-sensitive.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+//import { AuditService } from 'src/audit/audit.service';
 
 
 @Injectable()
 export default class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: Repository<User>
+    private readonly usersRepository: Repository<User>,
+    private readonly entityManager:EntityManager,
+    //private readonly auditService: AuditService,
+
   ) {}
+
+  // update users to use audit try
+  // async updateUser(id: number, updateData: Partial<User>, userId: number): Promise<User> {
+  //   const user = await this.usersRepository.findOne({where:{id:id}});
+  //   if (!user) {
+  //     throw new Error('User not found');
+  //   }
+
+  //   const oldValue = { ...user };
+  //   Object.assign(user, updateData);
+  //   const updatedUser = await this.usersRepository.save(user);
+
+  //   await this.auditService.createAudit(
+  //     'User',
+  //     id,
+  //     'UPDATE',
+  //     oldValue,
+  //     updatedUser,
+  //     userId,
+  //   );
+
+  //   return updatedUser;
+  // }
 
   // this handles the refresh feature
   async setCurrentRefreshToken(refreshToken: string, userId: number) {
@@ -184,6 +211,8 @@ export default class UserService {
 
   async getUserById(id:number){
     const user = await this.usersRepository.count();
+    // I had to return the user
+    return user;
   }
 
 
@@ -202,6 +231,7 @@ export default class UserService {
     const newUser = await this.usersRepository.create(userData);
     await this.usersRepository.save(newUser);
     return newUser;
+   
   }
 
   //update user

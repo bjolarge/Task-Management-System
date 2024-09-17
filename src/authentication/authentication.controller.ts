@@ -8,6 +8,8 @@ import {
   Get,
   ClassSerializerInterceptor,
   UseInterceptors,
+  Put,
+  Param,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import RegisterDto from './dto/register.dto';
@@ -19,6 +21,7 @@ import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
 import RequestWithUser from './interface/requestWithUser.interface';
 import JwtAuthenticationGuard from './guards/jwt-authentication.guard';
 import JwtRefreshGuard from './guards/jwt-refresh.guard';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 
 @ApiTags('authentication')
 @Controller('authentication')
@@ -29,6 +32,28 @@ export class AuthenticationController {
     private readonly usersService: UsersService,
     private readonly emailConfirmationService: EmailConfirmationService,
   ) {}
+
+  // providing an audit trail
+  // @Put(':id')
+  // async updateUser(
+  //   @Param('id') id: number,
+  //   @Body() updateUserDto: UpdateUserDto,
+  //   @Req() req: any, // Assuming the request object contains user information
+  // ) {
+  //   // Extract the user ID from the request object. Adjust according to your auth setup.
+  //   const userId = req.user?.id;
+  //   if (!userId) {
+  //     throw new Error('User ID not found in request');
+  //   }
+
+  //   // Call the updateUser method from UserService
+  //   try {
+  //     const updatedUser = await this.usersService.updateUser(id, updateUserDto, userId);
+  //     return updatedUser;
+  //   } catch (error) {
+  //     throw new Error(`Error updating user: ${error.message}`);
+  //   }
+  // }
 
   @Post('register')
   async register(@Body() registrationData: RegisterDto) {

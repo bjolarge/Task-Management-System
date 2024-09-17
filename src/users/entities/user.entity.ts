@@ -1,14 +1,22 @@
 import {
     Column,
     Entity,
+    JoinColumn,
+    OneToMany,
+    OneToOne,
     PrimaryGeneratedColumn,
   } from 'typeorm';
   import { Exclude } from 'class-transformer';
   
-  @Entity()
+  @Entity('uswrew')
+  // @Entity('uswre')
   class User {
     @PrimaryGeneratedColumn()
     public id: number;
+
+    //Added phoneNumber to test with twillo
+    @Column()
+    phoneNumber: string;
   
     @Column({ unique: true })
     public email: string;
@@ -32,6 +40,12 @@ import {
     @Column({ default: false })
     public isEmailConfirmed: boolean;
 
+    // @OneToOne(() => Profile, (profile) => profile.user) // specify inverse side as a second parameter
+    // @JoinColumn()
+    // profile: Profile
+
+
+  
   }
   
   export default User;

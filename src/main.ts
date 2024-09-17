@@ -8,6 +8,12 @@ import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
+  app.enableCors({
+    origin:["http://localhost:3000"],
+     //origin: '*',
+     methods: ['GET', 'POST'],
+     allowedHeaders: ['Content-Type', 'Authorization']
+   });
   app.useGlobalPipes(new ValidationPipe({
     whitelist:true,
     transform:true,
@@ -24,7 +30,7 @@ async function bootstrap() {
 const document = SwaggerModule.createDocument(app, options);
 SwaggerModule.setup('api', app, document);
   const configService = app.get(ConfigService);
-  const PORT = +configService.get<number>("PORT")||3008;
+  const PORT = +configService.get<number>("PORT")||3000;
   await app.listen(PORT);
 }
 bootstrap();

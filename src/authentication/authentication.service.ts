@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable,ConflictException } from '@nestjs/common';
 import UsersService from '../users/users.service';
 import RegisterDto from './dto/register.dto';
 import * as bcrypt from 'bcryptjs';
@@ -7,12 +7,15 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import TokenPayload from '../authentication/interface/tokenPayload.interface';
 
+import { comparePassword } from 'src/common/utils.';
+
 @Injectable()
 export class AuthenticationService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+
   ) {}
 
   public async register(registrationData: RegisterDto) {

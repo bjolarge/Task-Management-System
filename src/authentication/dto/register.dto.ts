@@ -33,6 +33,9 @@ import {
     @MinLength(8)
     @IsStrongPassword()
     password: string;
+
+    @IsString()
+    phoneNumber:string;
   }
   
   export default RegisterDto;
