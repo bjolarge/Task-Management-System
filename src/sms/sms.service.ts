@@ -18,7 +18,6 @@ export class SmsService {
       body,
       from: this.configService.get('TWILIO_PHONE_NUMBER'),
       to
-     // to:"+2348147822279",
     });
   }
 }

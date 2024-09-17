@@ -161,7 +161,9 @@ import {ScheduleModule} from '@nestjs/schedule'
    // DeliveryModule
    // AuditModule
   ],
-  controllers: [AppController, DeliveryController],
+  controllers: [AppController, 
+   // DeliveryController
+  ],
   providers: [AppService,WebsocketGateway],
 })
 export class AppModule {}
