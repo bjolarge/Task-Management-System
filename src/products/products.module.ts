@@ -1,19 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Rating } from './entities/rating.entity';
 import { Product } from './entities/product.entity';
-import { Production } from './entities/production.entity';
-import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
-import { MulterModule } from '@nestjs/platform-express';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Product, Production]),
-  CloudinaryModule,
-  MulterModule.register({dest: './uploads'}),
-],
+  imports:[TypeOrmModule.forFeature([Product,Rating])],
   controllers: [ProductsController],
   providers: [ProductsService],
-  exports:[ProductsService]
 })
 export class ProductsModule {}

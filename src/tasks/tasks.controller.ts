@@ -45,8 +45,12 @@ export class TasksController {
 
   @Get(':id')
   @UseGuards(JwtAuthenticationGuard)
-  findOne(@Param('id') id: string, @GetUser(){name}:User) {
-    return this.tasksService.findOne(+id);
+  findOne(@Param('id') id: string, @GetUser()user:User) {
+   // console.log(user);
+   console.log(`Logged User ID: ${user.id}, Requested Company Profile ID: ${id}`);
+    return this.tasksService.findOne(+id, user);
+
+    // return this.tasksService.findOne(+id, user);
   }
 
   @Patch(':id')

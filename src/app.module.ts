@@ -11,7 +11,6 @@ import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
 import { EmailConfirmationModule } from './email-confirmation/email-confirmation.module';
 import { WebsocketGateway } from './websocket.gateway';
-import { ProductsModule } from './products/products.module';
 import { ManageModule } from './manage/manage.module';
 import { ScalesModule } from './scales/scales.module';
 import { PanelsModule } from './panels/panels.module';
@@ -30,7 +29,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { MongooseModule } from '@nestjs/mongoose'
 import { LaymentModule } from './layment/layment.module';
 import { NsPaystackModule } from '@devtools-bp/nestjs-paystack';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
+//import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { PostsModule } from './posts/posts.module';
 import { AuditModule, TransportMethods } from '@appstellar/nestjs-audit';
 //import { AuditModule } from './audit/audit.module';
@@ -41,6 +40,13 @@ import {ScheduleModule} from '@nestjs/schedule'
 //import { DeliveryController } from './delivery/delivery.controller';
 //import { SmsModule } from './sms/sms.module';
 //import { DeliveryModule } from './delivery/delivery.module';
+import { QrCodeModule } from './qr-code/qr-code.module';
+//import { CloudinaryImagesModule } from './cloudinary-images/cloudinary-images.module';
+import { TestimonyModule } from './testimony/testimony.module';
+import { OrderModule } from './order/order.module';
+import { PurchasesModule } from './purchases/purchases.module';
+import { WeatherModule } from './weather/weather.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -50,7 +56,7 @@ import {ScheduleModule} from '@nestjs/schedule'
         { name: TransportMethods.CONSOLE },
         {
           name: TransportMethods.MONGOOSE,
-          options: { connectionString: 'mongodb://127.0.0.1:27017/xactwear' },
+          options: { connectionString: process.env.MongoDbKey},
         }
       ],
       // optional (defaults to false)
@@ -135,7 +141,6 @@ import {ScheduleModule} from '@nestjs/schedule'
     EmailModule,
     EmailConfirmationModule,
     ItemsModule,
-    ProductsModule,
     ManageModule,
     ScalesModule,
     PanelsModule,
@@ -151,11 +156,17 @@ import {ScheduleModule} from '@nestjs/schedule'
     DropdownModule,
     TransactionsModule,
     LaymentModule,
-    CloudinaryModule,
+    //CloudinaryModule,
     PostsModule,
     PaystackModule,
     CartModule,
     ScheduleModule.forRoot(),
+    QrCodeModule,
+    TestimonyModule,
+    OrderModule,
+    PurchasesModule,
+    WeatherModule,
+    ProductsModule,
    // SmsModule,
    // DeliveryModule
    // AuditModule

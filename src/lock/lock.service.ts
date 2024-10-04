@@ -28,11 +28,12 @@ export class LockService {
   }
 
   findAll() {
-    return this.lockRepository.find({relations:{pank:true, lomment:true}});
+    return this.lockRepository.find({relations:{pank:true, lomment:true},order: { clearNap: 'DESC' }});
   }
 
  async findOne(id: number) {
-    const lockOne = await this.lockRepository.find({where:{id}, relations:{pank:true, lomment:true}});
+    const lockOne = await this.lockRepository.find(
+      {where:{id}, relations:{pank:true, lomment:true},  order: { clearNap: 'ASC' }});
     if(!lockOne){
       throw new NotFoundException(`The lockOne with this ${id} cannot be found`);
     }

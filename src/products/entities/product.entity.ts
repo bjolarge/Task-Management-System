@@ -1,31 +1,14 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Production } from "./production.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Rating } from './rating.entity';
 
-@Entity('asety')
+@Entity()
 export class Product {
     @PrimaryGeneratedColumn()
-    id:number;
+    id: number;
 
     @Column()
-    name:string;
+    name: string;
 
-    @Column()
-    color:string;
-
-    @Column()
-    rating:number;
-
-    @Column()
-    price:number;
-
-    @Column()
-    shape:string;
-
-    @OneToOne(()=>Production,{cascade:true})
-    @JoinColumn()
-    production:Production;
-
-    constructor(product: Partial<Product>){
-        Object.assign(this, product);
-    }
+    @OneToMany(() => Rating, (rating) => rating.product)
+    ratings: Rating[];
 }

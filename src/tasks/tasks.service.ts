@@ -7,6 +7,7 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { Flavor } from './entities/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { GetPositionFilterDTO } from './dto/get-position-filter.dto';
+import User from 'src/users/entities/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -67,11 +68,13 @@ export class TasksService {
       });
    }
 
-   findOne(id) {
+   findOne(id, user:User) {
      const task =  this.tasksRepository.findOne({where: {id},relations:['flavors']});
      if(!task){
        throw new NotFoundException(`Task with the given #${id} not found`);
      }
+     console.log(`Requested Task Profile ID: ${id} (type: ${typeof id}, ${user}) `);
+
      return task;
    }
  

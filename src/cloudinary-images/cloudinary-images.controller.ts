@@ -9,7 +9,7 @@
 // }
 
 
-// app.controller.ts
+
 import { Controller, Post, UseInterceptors, UploadedFile, BadRequestException, Get } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileSizeValidationPipe } from './file-size-validation.pipe';
